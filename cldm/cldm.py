@@ -20,6 +20,11 @@ from ldm.models.diffusion.ddim import DDIMSampler
 
 
 class ControlledUnetModel(UNetModel):
+# This class extends the UNetModel class and adds the ability to incorporate control signals into the forward pass of the model. 
+# The forward method takes in the input tensor `x`, the timesteps tensor `timesteps`, an optional `context` tensor, and an optional `control` tensor. 
+# The `control` tensor is added to the output of the middle block, and optionally to the concatenated outputs of the output blocks.
+#  The `only_mid_control` flag determines whether the control signal is only added to the middle block or also to the output blocks. 
+# The method returns the output of the model after applying the control signal.
     def forward(self, x, timesteps=None, context=None, control=None, only_mid_control=False, **kwargs):
         hs = []
         with torch.no_grad():
